@@ -13,8 +13,6 @@ BUILD_VERSION=$VERSION.$GO_PIPELINE_COUNTER
 build_number=$1
 
 
-lambda_version=$(aws lambda list-versions-by-function --function-name ${NAME}Dev --region ${REGION} --output json|jq -r ".Versions[]| select(.Version!=\"\$LATEST\") | select(.Description == \"${build_number}\").Version")
-echo "---- $lambda_version ------"
-aws lambda create-alias --region ${REGION} --function-name ${NAME}Dev --description "dev" --function-version $lambda_version --name DEV
+aws lambda create-alias --region ${REGION} --function-name ${NAME}Dev --description "dev" --function-version ${VERSION} --name DEV
 
 aws lambda update-function-code --region ${REGION} --function-name ${NAME}Dev --zip-file fileb://Code/target/Launcher-${BUILD_VERSION}.jar
