@@ -4,12 +4,6 @@ function deployFail {
     echo "Deploy to AWS Lambda failed"
 	exit 1
 }
-
-function cleanUp {
-	docker system prune -a
-}
-
-trap cleanUp EXIT
 trap deployFail ERR
 
 CURDIR=`pwd`
