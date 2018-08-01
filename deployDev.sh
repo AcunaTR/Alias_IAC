@@ -14,8 +14,9 @@ build_number=$1
 
 existing_aliases=$(aws lambda list-aliases --function-name ${NAME}Dev --region ${REGION} --output json| jq -r '.Aliases[] | {Name: .Name}')
 echo ---------- $existing_aliases ---------
+echo --------- *"\"$alias\""* ---------
 
-if [[ $existing_aliases == *"\"$alias\""* ]]
+if [[ $existing_aliases == "DEV" ]]
 then
    aws lambda update-alias --region ${REGION} --function-name ${NAME}Dev --description "dev" --function-version "\$LATEST" --name DEV
 else
