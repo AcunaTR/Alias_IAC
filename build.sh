@@ -3,7 +3,7 @@
 CLEAN=false
 
 function buildFail {
-    echo "Maven package failed"
+    echo "Maven build failed"
     if [ "$CLEAN" = true ] ; then
     	exit 0
     fi
@@ -17,7 +17,8 @@ function cleanUp {
 }
 
 trap cleanUp EXIT
-trap packageFail ERR
+trap buildFail ERR
+
 
 CURDIR=`pwd`
 VERSION=$(cat ./Code/version)
@@ -28,4 +29,7 @@ docker run --rm \
            -v "${CURDIR}/:/build" \
 		   --user 498 \
            --workdir /build/Code \
-           maven:3.5.2-jdk-8 mvn package
+           maven:3.5.2-jdk-8 mvn compile
+           
+		   
+		   
