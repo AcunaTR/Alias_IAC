@@ -16,4 +16,3 @@ aws lambda update-function-code --region ${REGION} --function-name ${NAME}Dev --
 
 aws lambda publish-version --region ${REGION} --function-name ${NAME}Dev --description ${BUILD_VERSION}
 
-published_version
