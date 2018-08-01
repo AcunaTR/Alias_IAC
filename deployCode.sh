@@ -15,3 +15,5 @@ build_number=$1
 aws lambda update-function-code --region ${REGION} --function-name ${NAME}Dev --zip-file fileb://Code/target/Launcher-${BUILD_VERSION}.jar
 
 aws lambda publish-version --region ${REGION} --function-name ${NAME}Dev --description ${BUILD_VERSION}
+
+published_version
