@@ -11,7 +11,6 @@ NAME=$(cat ./Code/lambdaName)
 VERSION=$(cat ./Code/version)
 BUILD_VERSION=$VERSION.$GO_PIPELINE_COUNTER
 build_number=$1
-alias = $2
 
 existing_aliases=$(aws lambda list-aliases --function-name ${NAME}Dev --region ${REGION} --output json| jq -r '.Aliases[] | {Name: .Name}')
 
