@@ -13,16 +13,17 @@ BUILD_VERSION=$VERSION.$GO_PIPELINE_COUNTER
 build_number=$1
 
 existing_aliases=$(aws lambda list-aliases --function-name ${NAME}Dev --region ${REGION} --output json| jq -r '.Aliases[] | {Name: .Name}')
-echo ---------- $existing_aliases ---------
-
 
 if [[ $existing_aliases == *"DEV"* ]]; then
-   echo if
    aws lambda update-alias --region ${REGION} --function-name ${NAME}Dev --description "dev" --function-version "\$LATEST" --name DEV
 else
-   echo else
    aws lambda create-alias --region ${REGION} --function-name ${NAME}Dev --description "dev" --function-version "\$LATEST" --name DEV
 fi
 
-echo update
+if [[ $existing_aliases == *"EAP"* ]]; then
+   aws lambda update-alias --region ${REGION} --function-name ${NAME}Dev --description "eap" --function-version 1 --name EAP
+else
+   aws lambda create-alias --region ${REGION} --function-name ${NAME}Dev --description "eap" --function-version 1 --name EAP
+fi
+
 aws lambda update-function-code --region ${REGION} --function-name ${NAME}Dev --zip-file fileb://Code/target/Launcher-${BUILD_VERSION}.jar
