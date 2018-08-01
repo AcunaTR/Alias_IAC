@@ -18,10 +18,12 @@ echo ---------- $existing_aliases ---------
 
 if [[ $existing_aliases == "\"Name\": \"DEV\"" ]]
 then
+   echo if
    aws lambda update-alias --region ${REGION} --function-name ${NAME}Dev --description "dev" --function-version "\$LATEST" --name DEV
 else
- aws lambda create-alias --region ${REGION} --function-name ${NAME}Dev --description "dev" --function-version "\$LATEST" --name DEV
+   echo else
+   aws lambda create-alias --region ${REGION} --function-name ${NAME}Dev --description "dev" --function-version "\$LATEST" --name DEV
 fi
 
-
+echo update
 aws lambda update-function-code --region ${REGION} --function-name ${NAME}Dev --zip-file fileb://Code/target/Launcher-${BUILD_VERSION}.jar
