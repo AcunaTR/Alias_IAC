@@ -16,8 +16,7 @@ existing_aliases=$(aws lambda list-aliases --function-name ${NAME}Dev --region $
 echo ---------- $existing_aliases ---------
 
 
-if [[ $existing_aliases == "\"Name\": \"DEV\"" ]]
-then
+if [[ $existing_aliases == *"DEV"* ]]; then
    echo if
    aws lambda update-alias --region ${REGION} --function-name ${NAME}Dev --description "dev" --function-version "\$LATEST" --name DEV
 else
