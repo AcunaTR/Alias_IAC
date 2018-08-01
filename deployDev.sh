@@ -13,6 +13,7 @@ BUILD_VERSION=$VERSION.$GO_PIPELINE_COUNTER
 build_number=$1
 
 existing_aliases=$(aws lambda list-aliases --function-name ${NAME}Dev --region ${REGION} --output json| jq -r '.Aliases[] | {Name: .Name}')
+echo ---------- $existing_aliases ---------
 
 if [[ $existing_aliases == *"\"$alias\""* ]]
 then
