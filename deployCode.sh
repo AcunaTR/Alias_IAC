@@ -12,14 +12,14 @@ VERSION=$(cat ./Code/version)
 BUILD_VERSION=$VERSION.$GO_PIPELINE_COUNTER
 build_number=$1
 
-aws lambda update-function-code --region ${REGION} --function-name ${NAME}Dev --zip-file fileb://Code/target/Launcher-${BUILD_VERSION}.jar
+aws lambda update-function-code --region ${REGION} --function-name ${NAME} --zip-file fileb://Code/target/Launcher-${BUILD_VERSION}.jar
 
-OUTPUT=$(aws lambda publish-version --region ${REGION} --function-name ${NAME}Dev --description ${BUILD_VERSION})
+OUTPUT=$(aws lambda publish-version --region ${REGION} --function-name ${NAME} --description ${BUILD_VERSION})
 
-if [[ -e ${NAME}Dev.txt ]]; then
+if [[ -e ${NAME}.txt ]]; then
    echo "${OUTPUT}" > $file
 else
-   file="${NAME}Dev.txt"
+   file="${NAME}.txt"
    echo "${OUTPUT}" > $file
    ls -al
 fi

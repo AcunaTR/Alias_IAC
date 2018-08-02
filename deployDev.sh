@@ -12,12 +12,12 @@ VERSION=$(cat ./Code/version)
 BUILD_VERSION=$VERSION.$GO_PIPELINE_COUNTER
 build_number=$1
 
-existing_aliases=$(aws lambda list-aliases --function-name ${NAME}Dev --region ${REGION} --output json| jq -r '.Aliases[] | {Name: .Name}')
+existing_aliases=$(aws lambda list-aliases --function-name ${NAME} --region ${REGION} --output json| jq -r '.Aliases[] | {Name: .Name}')
 
 
 if [[ $existing_aliases == *"DEV"* ]]; then
-  aws lambda update-alias --region ${REGION} --function-name ${NAME}Dev --description "${NAME}Dev" --function-version 2  --name DEV
+  aws lambda update-alias --region ${REGION} --function-name ${NAME} --description "${NAME}" --function-version 2  --name DEV
 else
-   aws lambda create-alias --region ${REGION} --function-name ${NAME}Dev --description "{NAME}Dev" --function-version 2 --name DEV
+   aws lambda create-alias --region ${REGION} --function-name ${NAME} --description "{NAME}" --function-version 2 --name DEV
 fi
 
