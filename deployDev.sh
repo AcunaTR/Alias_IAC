@@ -18,10 +18,11 @@ lambda_version=$(aws lambda list-versions-by-function --function-name ${NAME}Dev
 echo ------ $lambda_version --------
 
 if [[ $existing_aliases == *"DEV"* ]]; then
-   Alias_DEV = $(aws lambda update-alias --region ${REGION} --function-name ${NAME}Dev --description "dev" --function-version 2  --name DEV)
+  aws lambda update-alias --region ${REGION} --function-name ${NAME}Dev --description "dev" --function-version 2  --name DEV
 else
-   Alias_DEV = $(aws lambda create-alias --region ${REGION} --function-name ${NAME}Dev --description "dev" --function-version 2 --name DEV)
+   aws lambda create-alias --region ${REGION} --function-name ${NAME}Dev --description "dev" --function-version 2 --name DEV
 fi
 
-echo "$Alias_DEV" >> file.txt
+OUTPUT =$(aws lambda get-alias --function-name ${NAME}Dev --name DEV)
+echo "${OUTPUT}" >> file.txt
 ls -al
