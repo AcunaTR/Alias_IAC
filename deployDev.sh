@@ -24,5 +24,6 @@ else
 fi
 
 OUTPUT=$(aws lambda get-alias --region ${REGION} --function-name ${NAME}Dev --name DEV) 
+echo ------- $OUTPUT ---------
 echo "${OUTPUT}" >> file.txt
 ls -al
