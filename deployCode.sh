@@ -16,3 +16,5 @@ aws lambda update-function-code --region ${REGION} --function-name ${NAME}Dev --
 
 aws lambda publish-version --region ${REGION} --function-name ${NAME}Dev --description ${BUILD_VERSION}
 
+lambda_version=$(aws lambda list-versions-by-function --function-name ${NAME}Dev --region ${REGION} --output json| jq -r ".Versions[] | select(.Version!=\"\$LATEST\") | select(.Description == \"${BUILD_VERSION}\").Version")
+echo ------ $lambda_version --------

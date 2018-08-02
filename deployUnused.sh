@@ -14,14 +14,13 @@ build_number=$1
 
 existing_aliases=$(aws lambda list-aliases --function-name ${NAME}Dev --region ${REGION} --output json| jq -r '.Aliases[] | {Name: .Name}')
 
-
-if [[ $existing_aliases == *"DEV"* ]]; then
-  aws lambda update-alias --region ${REGION} --function-name ${NAME}Dev --description "dev" --function-version 2  --name DEV
+if [[ $existing_aliases == *"UNUSED"* ]]; then
+  aws lambda update-alias --region ${REGION} --function-name ${NAME}Dev --description "unused" --function-version 7  --name UNUSED
 else
-   aws lambda create-alias --region ${REGION} --function-name ${NAME}Dev --description "dev" --function-version 2 --name DEV
+   aws lambda create-alias --region ${REGION} --function-name ${NAME}Dev --description "unused" --function-version 7 --name UNUSED
 fi
 
-OUTPUT=$(aws lambda get-alias --region ${REGION} --function-name ${NAME}Dev --name DEV) 
+OUTPUT=$(aws lambda get-alias --region ${REGION} --function-name ${NAME}Dev --name UNUSED) 
 echo ------- $OUTPUT ---------
 echo "${OUTPUT}" >> file.txt
 ls -al
