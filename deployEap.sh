@@ -15,7 +15,7 @@ aws lambda update-function-code --region ${REGION} --function-name ${NAME} --zip
 existing_aliases=$(aws lambda list-aliases --function-name ${NAME} --region ${REGION} --output json| jq -r '.Aliases[] | {Name: .Name}')
 
 if [[ $existing_aliases == *"EAP"* ]]; then
-   aws lambda update-alias --region ${REGION} --function-name ${NAME} --description "{NAME}" --function-version 2 --name EAP
+   aws lambda update-alias --region ${REGION} --function-name ${NAME} --description "${NAME}" --function-version 7 --name EAP
 else
-   aws lambda create-alias --region ${REGION} --function-name ${NAME} --description "{NAME}" --function-version 2 --name EAP
+   aws lambda create-alias --region ${REGION} --function-name ${NAME} --description "${NAME}" --function-version 7 --name EAP
 fi
