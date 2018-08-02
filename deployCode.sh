@@ -16,8 +16,14 @@ aws lambda update-function-code --region ${REGION} --function-name ${NAME}Dev --
 
 OUTPUT=$(aws lambda publish-version --region ${REGION} --function-name ${NAME}Dev --description ${BUILD_VERSION})
 
-echo ------- $OUTPUT ---------
-file="${NAME}Dev.txt"
+if [[ -e  == *${NAME}Dev.txt* ]]; then
+   echo "${OUTPUT}" > $file
+else
+   file="${NAME}Dev.txt"
+   echo "${OUTPUT}" > $file
+   ls -al
+fi
 
-echo "${OUTPUT}" >> $file
-ls -al
+
+
+
