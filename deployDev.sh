@@ -23,6 +23,6 @@ else
    aws lambda create-alias --region ${REGION} --function-name ${NAME}Dev --description "dev" --function-version 2 --name DEV
 fi
 
-OUTPUT =$(aws lambda get-alias --region ${REGION} --function-name ${NAME}Dev --name DEV)
+OUTPUT=$(aws lambda get-alias --region ${REGION} --function-name ${NAME}Dev --name DEV) 
 echo "${OUTPUT}" >> file.txt
 ls -al
