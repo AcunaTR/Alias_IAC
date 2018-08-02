@@ -16,12 +16,8 @@ existing_aliases=$(aws lambda list-aliases --function-name ${NAME}Dev --region $
 
 
 if [[ $existing_aliases == *"DEV"* ]]; then
-  aws lambda update-alias --region ${REGION} --function-name ${NAME}Dev --description "dev" --function-version 2  --name DEV
+  aws lambda update-alias --region ${REGION} --function-name ${NAME}Dev --description "${NAME}Dev" --function-version 2  --name DEV
 else
-   aws lambda create-alias --region ${REGION} --function-name ${NAME}Dev --description "dev" --function-version 2 --name DEV
+   aws lambda create-alias --region ${REGION} --function-name ${NAME}Dev --description "{NAME}Dev" --function-version 2 --name DEV
 fi
 
-OUTPUT=$(aws lambda get-alias --region ${REGION} --function-name ${NAME}Dev --name DEV) 
-echo ------- $OUTPUT ---------
-echo "${OUTPUT}" >> file.txt
-ls -al
