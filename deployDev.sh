@@ -16,8 +16,8 @@ existing_aliases=$(aws lambda list-aliases --function-name ${NAME} --region ${RE
 
 
 if [[ $existing_aliases == *"DEV"* ]]; then
-  aws lambda update-alias --region ${REGION} --function-name ${NAME} --description "${NAME}" --function-version 2  --name DEV
+  aws lambda update-alias --region ${REGION} --function-name ${NAME} --description "${NAME}" --function-version 1  --name DEV
 else
-   aws lambda create-alias --region ${REGION} --function-name ${NAME} --description "${NAME}" --function-version 2 --name DEV
+   aws lambda create-alias --region ${REGION} --function-name ${NAME} --description "${NAME}" --function-version 1 --name DEV
 fi
 
